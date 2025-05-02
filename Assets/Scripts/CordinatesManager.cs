@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class CoordinatesManager : MonoBehaviour
 {
-    [Tooltip("Row markers, X positions in world space.")]
     [SerializeField] private Transform[] xAnchors;
-    [Tooltip("Column markers, Z positions in world space.")]
     [SerializeField] private Transform[] zAnchors;
 
     /// <summary>

@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Coffee Jam Game test 1.sln"
+    "dotnet.defaultSolution": "Coffee-Jam-Game.sln"
 }

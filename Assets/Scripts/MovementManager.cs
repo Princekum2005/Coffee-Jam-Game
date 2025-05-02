@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class MovementManager : MonoBehaviour
 {
-    [Tooltip("The tag you use on every Tray root object.")]
     [SerializeField] private string trayTag = "Tray";
 
     private Camera cam;
     private CoordinatesManager coordMgr;
+    private Tray currentTray;
+    private Vector3 dragOffset;
 
     void Start()
     {
@@ -22,14 +23,10 @@ public class MovementManager : MonoBehaviour
             HandleRelease();
     }
 
-    private Tray currentTray;
-    private Vector3 dragOffset;
-
     void HandleDrag()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit) &&
-            hit.transform.CompareTag(trayTag))
+        if (Physics.Raycast(ray, out RaycastHit hit) && hit.transform.CompareTag(trayTag))
         {
             if (currentTray == null)
             {
@@ -39,14 +36,12 @@ public class MovementManager : MonoBehaviour
                 dragOffset = hit.transform.position - hit.point;
             }
 
-            if (currentTray.isCollidingWithWall)
+            if (currentTray.IsCollidingWithWall)
             {
-                // you said “do other things” here
-                Debug.Log("Stuck on wall—cannot move further");
+                HandleRelease();
                 return;
             }
 
-            // X/Z only, with that same dragOffset
             Vector3 desired = hit.point + dragOffset;
             Vector3 p = hit.transform.position;
             hit.transform.position = new Vector3(desired.x, p.y, desired.z);
